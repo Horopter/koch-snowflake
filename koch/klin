@@ -1,0 +1,11 @@
+#!/bin/bash -u
+chmod 755 glc kgtk kzen
+if [[ $(compgen -c | grep -m 1 "gtkdialog") ]]
+then 
+	./rfdgtk
+else 
+	if  [[ $(compgen -c | grep -m 1 "zenity") ]]
+	then
+		./rfdzen
+	fi
+fi

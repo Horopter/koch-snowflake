@@ -1,0 +1,27 @@
+#!/bin/sh -u 
+zenity --info --ok-label="Start" --width="500" --height="300" --title="Horopter Inc." --text "`basename $0` is loaded. Click start to continue."
+current=`pwd`
+PATH=$PATH:$current
+succession=$(zenity --entry --width="500" --height="300" --title="Koch Curve" --text "Enter the number of successions [0-7]")
+if [ $succession -le 7 ] && [ $succession -ge 0 ]
+then
+	size=$(zenity --entry --width="500" --height="300" --title="Koch Curve" --text "Enter the size of the triangle : [1-5] ")
+	if [ $size -le 5 ] && [ $size -ge 1 ]
+	then
+		color=$(zenity --entry --width="500" --height="300" --title="Koch Curve" --text "Enter the color of the Koch Curve : \n1. RED \n2. GREEN \n3.BLUE  \n[1-3]")
+		if [ $color -le 3 ] && [ $size -ge 1 ]
+		then
+			$(glc koch.cpp)
+			echo "Compilation done."
+			input=`echo "$succession $size $color"`
+			./graph.out "$input"
+			succession=$(echo $succession + 2|bc)
+			size=$(echo $size + $size|bc)
+			input=`echo "$succession $size $color"`
+			$(glc zoom.cpp)
+			./graph.out "$input" 
+			exit 0
+		fi
+	fi
+fi
+zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Click finish to exit."

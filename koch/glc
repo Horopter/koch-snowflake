@@ -1,0 +1,18 @@
+#!/bin/bash
+#authored by Santosh Desai
+if [ $# == 0 ]
+then
+	echo "No arguments. Compilation terminated."
+elif [ $# == 1 ]
+then
+	var=$1
+	extension=$(echo $1 | cut -d '.' -f2)
+	if [ extension == ".c" ]
+	then
+	gcc $1 -o graph.out -lGL -lGLU -lglut
+	else
+	g++ $1 -o graph.out -lGL -lGLU -lglut
+	fi
+else 
+	echo "Argument mismatch Mr. Desai"
+fi
